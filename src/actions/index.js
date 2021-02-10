@@ -40,12 +40,12 @@ export function currentTemp(temp){
   }
 }
 
-export function displayModal(){
-  return {
-    type: "DISPLAY_MODAL",
-    value: false
-  }
+export function toggleModal() {
+	return {
+		type: 'TOGGLE_MODAL',
+	};
 }
+
 
 export function imageUrl(imageUrl){
   return {
@@ -82,3 +82,13 @@ export function removeUser(users){
   }
 }
 
+export function getUsers() {
+	return async (dispatch) => {
+		const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
+		const users = await response.json();
+		dispatch({
+			type: 'GET_USERS',
+			value: users,
+		});
+	};
+}

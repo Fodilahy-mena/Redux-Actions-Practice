@@ -1,3 +1,4 @@
+import { AccordionActions } from '@material-ui/core';
 import { combineReducers } from "redux";
 
 // incomplete reducer function that checks an action prop type to detemine a counter number
@@ -19,8 +20,10 @@ function users(state =[], action){
     return [...state, action.value]
     case "REMOVE_USER":
     return state.splice(0, state.length - 1)
-    default:
-      return state
+    case 'GET_USERS':
+			return action.value;
+		default:
+			return state;
   }
 }
 
@@ -42,8 +45,23 @@ function currentTemp(state=23, action){
   }
 }
 
-function displayModal(state=false, action){
-  return state;
+function displayModal(state = false, action) {
+	switch (action.type) {
+		case 'TOGGLE_MODAL':
+			return !state;
+		default:
+			return state;
+	}
+}
+
+function toggleModal(state=false, action){
+  switch (action.type) {
+    case "TOGGLE_MODAL":
+    return !state;
+    default:
+      return state
+  }
+    
 }
 
 function imageUrl(state="", action){
@@ -92,6 +110,8 @@ function specialText(text="", action){
   }
 }
 
+
+
 export default combineReducers({
   currentCount,
   specialText,
@@ -102,5 +122,5 @@ export default combineReducers({
   imageUrl,
   currentUserSort,
   imageScale,
-  users
+  users,
 });
